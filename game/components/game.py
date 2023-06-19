@@ -15,6 +15,7 @@ class Game:
          self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
          self.clock = pygame.time.Clock()
          self.playing = False
+         self.running = False
          self.game_speed = 10
          self.x_pos_bg = 0
          self.y_pos_bg = 0
@@ -26,13 +27,20 @@ class Game:
         
      def run(self):
           #Game loop: events - update - draw
+         self.running = True
+         while self.running:
+             if not self.playing:
+                 self.show_menu()
+                 
+         pygame.display.quit()
+         pygame.quit()
+         
+     def play(self):
          self.playing = True
          while self.playing:
              self.events()
              self.update()
              self.draw()
-         pygame.display.quit()
-         pygame.quit()
 
      def events(self):
          for event in pygame.event.get():
@@ -65,3 +73,6 @@ class Game:
              self.screen.blit(image, (self.x_pos_bg, self.y_pos_bg - image_height))
              self.y_pos_bg = 0
          self.y_pos_bg += self.game_speed
+         
+     def show_menu(self):
+          pass
